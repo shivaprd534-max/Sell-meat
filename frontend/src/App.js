@@ -28,6 +28,16 @@ import {
 import axios from 'axios';
 import './App.css';
 
+// Import Pages
+import HomePage from './pages/HomePage';
+import ProductsPage from './pages/ProductsPage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import CartPage from './pages/CartPage';
+import AdminDashboard from './pages/AdminDashboard';
+import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
+
 // Context for global state
 const AppContext = createContext();
 
