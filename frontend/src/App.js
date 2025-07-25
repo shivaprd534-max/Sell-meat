@@ -28,15 +28,15 @@ import {
 import axios from 'axios';
 import './App.css';
 
-// Import Pages
-import HomePage from './pages/HomePage';
-import ProductsPage from './pages/ProductsPage';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import CartPage from './pages/CartPage';
-import AdminDashboard from './pages/AdminDashboard';
-import AboutPage from './pages/AboutPage';
-import ContactPage from './pages/ContactPage';
+// Import Pages - using React.lazy for code splitting
+const HomePage = React.lazy(() => import('./pages/HomePage'));
+const ProductsPage = React.lazy(() => import('./pages/ProductsPage'));
+const LoginPage = React.lazy(() => import('./pages/LoginPage'));
+const RegisterPage = React.lazy(() => import('./pages/RegisterPage'));
+const CartPage = React.lazy(() => import('./pages/CartPage'));
+const AdminDashboard = React.lazy(() => import('./pages/AdminDashboard'));
+const AboutPage = React.lazy(() => import('./pages/AboutPage'));
+const ContactPage = React.lazy(() => import('./pages/ContactPage'));
 
 // Context for global state
 const AppContext = createContext();
