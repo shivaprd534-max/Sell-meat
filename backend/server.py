@@ -7,7 +7,6 @@ import os
 from dotenv import load_dotenv
 import uuid
 from datetime import datetime
-import bcrypt
 
 load_dotenv()
 
