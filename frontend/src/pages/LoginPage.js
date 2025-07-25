@@ -50,15 +50,15 @@ const LoginPage = () => {
     });
   };
 
-  const demoCustomerLogin = () => {
+  const customerLogin = () => {
     setFormData({
-      email: 'demo@customer.com',
-      password: 'demo123'
+      email: 'test@customer.com',
+      password: 'customer123'
     });
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-12">
+    <div className="min-h-screen hero-gradient flex items-center justify-center py-12">
       <div className="container-width section-padding">
         <div className="max-w-md mx-auto">
           <motion.div
@@ -67,13 +67,13 @@ const LoginPage = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-8"
           >
-            <div className="bg-gradient-to-r from-primary-500 to-accent-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="bg-gradient-to-r from-primary-500 to-primary-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
               <ChefHat className="w-8 h-8 text-white" />
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-bold mb-2">
+            <h1 className="text-3xl md:text-4xl font-display font-bold mb-2 text-neutral-800">
               Welcome Back
             </h1>
-            <p className="text-white/60">
+            <p className="text-neutral-600">
               Sign in to your MeatCraft account
             </p>
           </motion.div>
@@ -84,33 +84,33 @@ const LoginPage = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="card"
           >
-            {/* Demo Login Buttons */}
+            {/* Quick Login Buttons */}
             <div className="mb-6 space-y-3">
-              <p className="text-center text-white/60 text-sm mb-4">Quick Demo Login:</p>
+              <p className="text-center text-neutral-600 text-sm mb-4">Quick Login:</p>
               <div className="grid grid-cols-2 gap-3">
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={adminLogin}
-                  className="btn-secondary text-xs py-2"
+                  className="btn-outline text-xs py-2"
                 >
-                  Admin Demo
+                  Admin Access
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={demoCustomerLogin}
-                  className="btn-secondary text-xs py-2"
+                  onClick={customerLogin}
+                  className="btn-outline text-xs py-2"
                 >
-                  Customer Demo
+                  Customer Login
                 </motion.button>
               </div>
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-white/20"></div>
+                  <div className="w-full border-t border-neutral-300"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-4 bg-dark-900 text-white/60">Or login manually</span>
+                  <span className="px-4 bg-white text-neutral-600">Or login manually</span>
                 </div>
               </div>
             </div>
@@ -120,7 +120,7 @@ const LoginPage = () => {
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="bg-red-500/20 border border-red-500/50 rounded-lg p-3 text-red-400 text-sm"
+                  className="bg-red-100 border border-red-300 rounded-lg p-3 text-red-700 text-sm"
                 >
                   {error}
                 </motion.div>
@@ -128,11 +128,11 @@ const LoginPage = () => {
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-white/80 mb-2">
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">
                     Email or Username
                   </label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/40 w-5 h-5" />
+                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-5 h-5" />
                     <input
                       type="text"
                       name="email"
@@ -146,11 +146,11 @@ const LoginPage = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-white/80 mb-2">
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">
                     Password
                   </label>
                   <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/40 w-5 h-5" />
+                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-5 h-5" />
                     <input
                       type={showPassword ? 'text' : 'password'}
                       name="password"
@@ -163,7 +163,7 @@ const LoginPage = () => {
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/40 hover:text-white/60"
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-400 hover:text-neutral-600"
                     >
                       {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                     </button>
@@ -177,12 +177,12 @@ const LoginPage = () => {
                     type="checkbox"
                     className="sr-only"
                   />
-                  <div className="w-4 h-4 border border-white/30 rounded bg-transparent mr-2"></div>
-                  <span className="text-sm text-white/60">Remember me</span>
+                  <div className="w-4 h-4 border border-neutral-300 rounded bg-white mr-2"></div>
+                  <span className="text-sm text-neutral-600">Remember me</span>
                 </label>
                 <button
                   type="button"
-                  className="text-sm text-primary-400 hover:text-primary-300 transition-colors"
+                  className="text-sm text-primary-500 hover:text-primary-600 transition-colors"
                 >
                   Forgot password?
                 </button>
@@ -193,9 +193,9 @@ const LoginPage = () => {
                 whileTap={{ scale: 0.98 }}
                 type="submit"
                 disabled={isLoading}
-                className={`w-full py-3 rounded-xl font-medium transition-all duration-300 ${
+                className={`w-full py-3 rounded-lg font-medium transition-all duration-300 ${
                   isLoading
-                    ? 'bg-white/20 text-white/50 cursor-not-allowed'
+                    ? 'bg-neutral-300 text-neutral-500 cursor-not-allowed'
                     : 'btn-primary'
                 }`}
               >
@@ -204,11 +204,11 @@ const LoginPage = () => {
             </form>
 
             <div className="mt-6 text-center">
-              <p className="text-white/60">
+              <p className="text-neutral-600">
                 Don't have an account?{' '}
                 <Link 
                   to="/register"
-                  className="text-primary-400 hover:text-primary-300 font-medium transition-colors"
+                  className="text-primary-500 hover:text-primary-600 font-medium transition-colors"
                 >
                   Sign up
                 </Link>
@@ -216,15 +216,15 @@ const LoginPage = () => {
             </div>
           </motion.div>
 
-          {/* Admin Credentials Helper */}
+          {/* Test Credentials Helper */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-6 glass rounded-lg p-4 text-center"
+            className="mt-6 bg-white/70 backdrop-blur-sm border border-neutral-200 rounded-lg p-4 text-center"
           >
-            <p className="text-xs text-white/60 mb-2">Demo Credentials:</p>
-            <div className="text-xs text-white/80 space-y-1">
+            <p className="text-xs text-neutral-600 mb-2">Test Credentials:</p>
+            <div className="text-xs text-neutral-700 space-y-1">
               <div><strong>Admin:</strong> username: shiv, password: 123</div>
               <div><strong>Customer:</strong> Any email with any password (auto-register)</div>
             </div>
