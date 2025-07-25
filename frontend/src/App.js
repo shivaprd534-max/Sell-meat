@@ -351,16 +351,25 @@ export default function App() {
         <div className="min-h-screen bg-gradient-to-br from-dark-900 via-dark-800 to-dark-900">
           <Navigation />
           <main className="pt-16">
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/products" element={<ProductsPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              <Route path="/cart" element={<CartPage />} />
-              <Route path="/admin" element={<AdminDashboard />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/contact" element={<ContactPage />} />
-            </Routes>
+            <React.Suspense fallback={
+              <div className="min-h-screen flex items-center justify-center">
+                <div className="glass p-8 rounded-xl text-center">
+                  <div className="w-8 h-8 border-2 border-primary-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                  <p className="text-white/60">Loading...</p>
+                </div>
+              </div>
+            }>
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/products" element={<ProductsPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+                <Route path="/cart" element={<CartPage />} />
+                <Route path="/admin" element={<AdminDashboard />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/contact" element={<ContactPage />} />
+              </Routes>
+            </React.Suspense>
           </main>
         </div>
       </Router>
