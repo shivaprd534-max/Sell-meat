@@ -23,7 +23,9 @@ import {
   Settings,
   Eye,
   Edit,
-  Trash2
+  Trash2,
+  Search,
+  Heart
 } from 'lucide-react';
 import axios from 'axios';
 import './App.css';
@@ -148,7 +150,7 @@ const Navigation = () => {
   const navigate = useNavigate();
 
   return (
-    <nav className="glass-dark fixed w-full top-0 z-50 transition-all duration-300">
+    <nav className="nav-light fixed w-full top-0 z-50 transition-all duration-300">
       <div className="container-width section-padding">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -157,10 +159,10 @@ const Navigation = () => {
             whileHover={{ scale: 1.05 }}
             onClick={() => navigate('/')}
           >
-            <div className="bg-gradient-to-r from-primary-500 to-accent-500 p-2 rounded-lg">
+            <div className="bg-gradient-to-r from-primary-500 to-primary-600 p-2 rounded-lg">
               <ChefHat className="w-6 h-6 text-white" />
             </div>
-            <span className="text-xl font-display font-bold text-gradient">MeatCraft</span>
+            <span className="text-xl font-display font-bold text-primary-gradient">MeatCraft</span>
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -177,7 +179,7 @@ const Navigation = () => {
               <>
                 <button 
                   onClick={() => navigate('/login')}
-                  className="btn-secondary text-sm py-2 px-4"
+                  className="btn-outline text-sm py-2 px-4"
                 >
                   Login
                 </button>
@@ -195,7 +197,7 @@ const Navigation = () => {
                     onClick={() => navigate('/admin')}
                     className="btn-primary text-sm py-2 px-4"
                   >
-                    Admin Dashboard
+                    Dashboard
                   </button>
                 ) : (
                   <>
@@ -209,9 +211,9 @@ const Navigation = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden glass p-2 rounded-lg"
+              className="md:hidden p-2 rounded-lg hover:bg-neutral-100 transition-colors"
             >
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isMenuOpen ? <X className="w-6 h-6 text-neutral-700" /> : <Menu className="w-6 h-6 text-neutral-700" />}
             </button>
           </div>
         </div>
@@ -224,7 +226,7 @@ const Navigation = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass-dark border-t border-white/10"
+            className="md:hidden bg-white border-t border-neutral-200 shadow-soft"
           >
             <div className="section-padding py-4 space-y-4">
               <MobileNavLink to="/">Home</MobileNavLink>
@@ -249,7 +251,7 @@ const NavLink = ({ to, children }) => {
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       onClick={() => navigate(to)}
-      className="text-white/80 hover:text-white font-medium transition-colors"
+      className="text-neutral-700 hover:text-primary-500 font-medium transition-colors"
     >
       {children}
     </motion.button>
@@ -268,7 +270,7 @@ const MobileNavLink = ({ to, children }) => {
   return (
     <button
       onClick={handleClick}
-      className="block w-full text-left text-white/80 hover:text-white font-medium transition-colors py-2"
+      className="block w-full text-left text-neutral-700 hover:text-primary-500 font-medium transition-colors py-2"
     >
       {children}
     </button>
@@ -285,9 +287,9 @@ const CartIcon = () => {
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
       onClick={() => navigate('/cart')}
-      className="relative glass p-2 rounded-lg"
+      className="relative p-2 rounded-lg hover:bg-neutral-100 transition-colors"
     >
-      <ShoppingCart className="w-6 h-6" />
+      <ShoppingCart className="w-6 h-6 text-neutral-700" />
       {itemCount > 0 && (
         <motion.div
           initial={{ scale: 0 }}
@@ -311,9 +313,9 @@ const UserMenu = () => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="glass p-2 rounded-lg"
+        className="p-2 rounded-lg hover:bg-neutral-100 transition-colors"
       >
-        <User className="w-6 h-6" />
+        <User className="w-6 h-6 text-neutral-700" />
       </motion.button>
 
       <AnimatePresence>
@@ -322,18 +324,18 @@ const UserMenu = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="absolute right-0 mt-2 w-48 glass rounded-xl py-2 shadow-xl"
+            className="absolute right-0 mt-2 w-48 bg-white border border-neutral-200 rounded-lg shadow-medium py-2"
           >
-            <div className="px-4 py-2 border-b border-white/10">
-              <p className="text-sm font-medium">Welcome back!</p>
-              <p className="text-xs text-white/60">{user.email || 'User'}</p>
+            <div className="px-4 py-2 border-b border-neutral-200">
+              <p className="text-sm font-medium text-neutral-900">Welcome back!</p>
+              <p className="text-xs text-neutral-600">{user.email || 'User'}</p>
             </div>
             <button
               onClick={() => {
                 logout();
                 setIsOpen(false);
               }}
-              className="w-full text-left px-4 py-2 text-sm hover:bg-white/10 transition-colors"
+              className="w-full text-left px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition-colors"
             >
               Logout
             </button>
@@ -348,14 +350,14 @@ export default function App() {
   return (
     <AppProvider>
       <Router>
-        <div className="min-h-screen bg-gradient-to-br from-dark-900 via-dark-800 to-dark-900">
+        <div className="min-h-screen bg-neutral-50">
           <Navigation />
           <main className="pt-16">
             <React.Suspense fallback={
               <div className="min-h-screen flex items-center justify-center">
-                <div className="glass p-8 rounded-xl text-center">
+                <div className="card text-center">
                   <div className="w-8 h-8 border-2 border-primary-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                  <p className="text-white/60">Loading...</p>
+                  <p className="text-neutral-600">Loading...</p>
                 </div>
               </div>
             }>
