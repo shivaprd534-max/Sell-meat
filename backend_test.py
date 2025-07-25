@@ -202,7 +202,8 @@ class MeatCraftAPITester:
                 }
             ],
             "total_amount": product['price'] * 2,
-            "delivery_address": "123 Test Street, Test City"
+            "delivery_address": "123 Test Street, Test City",
+            "status": "pending"
         }
         
         success, response = self.make_request('POST', '/api/orders', order_data)
