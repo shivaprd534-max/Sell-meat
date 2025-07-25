@@ -41,7 +41,7 @@ const ContactPage = React.lazy(() => import('./pages/ContactPage'));
 // Context for global state
 const AppContext = createContext();
 
-const useApp = () => {
+export const useApp = () => {
   const context = useContext(AppContext);
   if (!context) {
     throw new Error('useApp must be used within AppProvider');
