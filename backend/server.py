@@ -11,7 +11,7 @@ import bcrypt
 
 load_dotenv()
 
-app = FastAPI(title="Premium Meat Delivery API")
+app = FastAPI(title="MeatCraft Premium Delivery API")
 
 # CORS configuration
 app.add_middleware(
