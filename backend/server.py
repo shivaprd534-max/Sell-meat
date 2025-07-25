@@ -65,9 +65,9 @@ class Order(BaseModel):
     status: str
     created_at: Optional[datetime] = None
 
-# Initialize demo products
-def initialize_demo_data():
-    demo_products = [
+# Initialize products
+def initialize_products():
+    products = [
         {
             "id": str(uuid.uuid4()),
             "name": "Premium Chicken Breast",
@@ -107,18 +107,38 @@ def initialize_demo_data():
             "weight": "800g",
             "image": "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400",
             "stock": 30
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Fresh Chicken Thighs",
+            "category": "chicken",
+            "description": "Juicy chicken thighs - perfect for curries and stews",
+            "price": 249.99,
+            "weight": "600g",
+            "image": "https://images.unsplash.com/photo-1604503468506-a8da13d82791?w=400",
+            "stock": 45
+        },
+        {
+            "id": str(uuid.uuid4()),
+            "name": "Mutton Keema",
+            "category": "mutton",
+            "description": "Freshly ground mutton keema - ideal for keema curry",
+            "price": 399.99,
+            "weight": "500g",
+            "image": "https://images.unsplash.com/photo-1588347818987-84e6a8a02aca?w=400",
+            "stock": 35
         }
     ]
     
-    for product in demo_products:
+    for product in products:
         products_db[product["id"]] = product
 
-initialize_demo_data()
+initialize_products()
 
 # API Routes
 @app.get("/")
 async def root():
-    return {"message": "Premium Meat Delivery API"}
+    return {"message": "MeatCraft Premium Delivery API"}
 
 @app.get("/api/products")
 async def get_products():
@@ -131,55 +151,75 @@ async def get_products_by_category(category: str):
 
 @app.post("/api/auth/register")
 async def register_user(user: User):
-    user_id = str(uuid.uuid4())
-    user.id = user_id
-    # Hash password in production
-    users_db[user_id] = user.dict()
-    return {"message": "User registered successfully", "user_id": user_id}
+    try:
+        user_id = str(uuid.uuid4())
+        user.id = user_id
+        # Hash password in production
+        users_db[user_id] = user.dict()
+        return {"message": "User registered successfully", "user_id": user_id}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
 @app.post("/api/auth/login")
 async def login_user(credentials: dict):
-    email = credentials.get("email")
-    password = credentials.get("password")
-    
-    # Check if admin credentials
-    if email == admin_credentials["username"] and password == admin_credentials["password"]:
-        return {"message": "Login successful", "user_type": "admin", "token": "admin_token"}
-    
-    # Check regular users
-    for user_id, user_data in users_db.items():
-        if user_data["email"] == email and user_data["password"] == password:
-            return {"message": "Login successful", "user_type": "customer", "user_id": user_id, "token": "user_token"}
-    
-    raise HTTPException(status_code=401, detail="Invalid credentials")
+    try:
+        email = credentials.get("email")
+        password = credentials.get("password")
+        
+        if not email or not password:
+            raise HTTPException(status_code=400, detail="Email and password are required")
+        
+        # Check if admin credentials
+        if email == admin_credentials["username"] and password == admin_credentials["password"]:
+            return {"message": "Login successful", "user_type": "admin", "token": "admin_token"}
+        
+        # Check regular users
+        for user_id, user_data in users_db.items():
+            if user_data["email"] == email and user_data["password"] == password:
+                return {"message": "Login successful", "user_type": "customer", "user_id": user_id, "token": "user_token"}
+        
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/api/orders")
 async def create_order(order: Order):
-    order_id = str(uuid.uuid4())
-    order.id = order_id
-    order.created_at = datetime.now()
-    order.status = "pending"
-    orders_db[order_id] = order.dict()
-    return {"message": "Order created successfully", "order_id": order_id}
+    try:
+        order_id = str(uuid.uuid4())
+        order.id = order_id
+        order.created_at = datetime.now()
+        order.status = "pending"
+        orders_db[order_id] = order.dict()
+        return {"message": "Order created successfully", "order_id": order_id}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
 @app.get("/api/admin/dashboard")
 async def get_admin_dashboard():
-    total_orders = len(orders_db)
-    total_earnings = sum(order["total_amount"] for order in orders_db.values())
-    total_customers = len(users_db)
-    active_deliveries = len([o for o in orders_db.values() if o["status"] == "in_transit"])
-    
-    return {
-        "total_orders": total_orders,
-        "total_earnings": total_earnings,
-        "total_customers": total_customers,
-        "active_deliveries": active_deliveries,
-        "recent_orders": list(orders_db.values())[-10:]
-    }
+    try:
+        total_orders = len(orders_db)
+        total_earnings = sum(order["total_amount"] for order in orders_db.values())
+        total_customers = len(users_db)
+        active_deliveries = len([o for o in orders_db.values() if o["status"] == "in_transit"])
+        
+        return {
+            "total_orders": total_orders,
+            "total_earnings": total_earnings,
+            "total_customers": total_customers,
+            "active_deliveries": active_deliveries,
+            "recent_orders": list(orders_db.values())[-10:]
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/api/admin/orders")
 async def get_all_orders():
-    return {"orders": list(orders_db.values())}
+    try:
+        return {"orders": list(orders_db.values())}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
     import uvicorn
